@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "../styles/sign.css";
 import { UserContext } from "../utils/context";
 import { useNavigate } from "react-router-dom";
@@ -6,36 +6,37 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { token, login } = useContext(UserContext);
+  const { login } = useContext(UserContext);
   const navigate = useNavigate();
-  const signIn = (e) => {
+  const SignIn = (e) => {
     e.preventDefault();
-    fetch("http://localhost:5000/api/auth/signin", {
-      method: "POST",
-      withCredentials: true,
-      body: JSON.stringify({ email: email, password: password }),
-      headers: {
-        "content-type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.error) {
-          console.log(res.error);
-        } else {
-          alert(res.message);
-          login(res.token);
-          console.log(token);
-          navigate("/");
-        }
+    useEffect(() => {
+      fetch("http://localhost:5000/api/auth/signin", {
+        method: "POST",
+        withCredentials: true,
+        body: JSON.stringify({ email: email, password: password }),
+        headers: {
+          "content-type": "application/json",
+        },
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.error) {
+            console.log(res.error);
+          } else {
+            alert(res.message);
+            login(res.pseudo);
+            navigate("/");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, []);
   };
   return (
     <div className="col-12 col-md center-block">
-      <form onSubmit={signIn}>
+      <form onSubmit={SignIn}>
         <h1>Login</h1>
         <div className="form-outline mb-4">
           <input

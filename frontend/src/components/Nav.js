@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { UserContext } from "../utils/context";
 
 const Nav = () => {
-  const { token, logout } = useContext(UserContext);
+  const { loginIn, logout } = useContext(UserContext);
+  console.log(loginIn);
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -35,10 +36,15 @@ const Nav = () => {
             </Link>
           </div>
           <div className="navbar-nav ms-auto">
-            {token.auth ? (
-              <a href="/" onClick={logout} className="nav-item nav-link">
-                Logout
-              </a>
+            {loginIn.token ? (
+              <div className="sign">
+                <span className="nav-item nav-link">
+                  Bonjour {loginIn.pseudo}
+                </span>
+                <a href="/" onClick={logout} className="nav-item nav-link">
+                  Logout
+                </a>
+              </div>
             ) : (
               <div className="sign">
                 <Link to="/register" className="nav-item nav-link">

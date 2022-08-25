@@ -1,15 +1,22 @@
 import React, { useState, createContext } from "react";
+import Cookies from "js-cookie";
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+  const cookie = Cookies.get("token");
   // User is the name of the "data" that gets stored in context
-  const [token, setToken] = useState({ token: "", auth: false });
+  const [loginIn, setloginIn] = useState({
+    token: cookie,
+    pseudo: null,
+    auth: false,
+  });
 
   // Login updates the user data with a name parameter
-  const login = (token) => {
-    setToken((token) => ({
-      token: token,
+  const login = (pseudo) => {
+    setloginIn(() => ({
+      token: cookie,
+      pseudo: pseudo,
       auth: true,
     }));
   };
@@ -23,14 +30,15 @@ export const UserProvider = ({ children }) => {
         "content-type": "application/json",
       },
     });
-    setToken((token) => ({
-      token: "",
+    setloginIn(() => ({
+      token: null,
+      pseudo: null,
       auth: false,
     }));
   };
 
   return (
-    <UserContext.Provider value={{ token, login, logout }}>
+    <UserContext.Provider value={{ loginIn, login, logout }}>
       {children}
     </UserContext.Provider>
   );

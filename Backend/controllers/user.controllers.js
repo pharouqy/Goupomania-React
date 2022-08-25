@@ -69,6 +69,7 @@ module.exports.signin = (req, res) => {
           .json({
             message: "Login success",
             token,
+            pseudo: user.pseudo,
           });
       }
       return res.status(401).json({
