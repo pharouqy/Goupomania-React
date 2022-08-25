@@ -1,11 +1,18 @@
-import React, { useContext } from "react";
 import "../styles/nav.css";
 import { Link } from "react-router-dom";
-import { UserContext } from "../utils/context";
 
 const Nav = () => {
-  const { loginIn, logout } = useContext(UserContext);
-  console.log(loginIn);
+  let userAuth = JSON.parse(localStorage.getItem("userAuth"));
+  const logout = () => {
+    fetch("http://localhost:5000/api/auth/logout", {
+      method: "GET",
+      withCredentials: true,
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+    localStorage.removeItem("userAuth");
+  };
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -36,10 +43,10 @@ const Nav = () => {
             </Link>
           </div>
           <div className="navbar-nav ms-auto">
-            {loginIn.token ? (
+            {userAuth ? (
               <div className="sign">
                 <span className="nav-item nav-link">
-                  Bonjour {loginIn.pseudo}
+                  Bonjour {userAuth.pseudo}
                 </span>
                 <a href="/" onClick={logout} className="nav-item nav-link">
                   Logout

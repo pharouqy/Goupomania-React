@@ -1,38 +1,35 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState } from "react";
 import "../styles/sign.css";
-import { UserContext } from "../utils/context";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useContext(UserContext);
   const navigate = useNavigate();
   const SignIn = (e) => {
+    localStorage.setItem("userAuth", JSON.stringify({}));
     e.preventDefault();
-    useEffect(() => {
-      fetch("http://localhost:5000/api/auth/signin", {
-        method: "POST",
-        withCredentials: true,
-        body: JSON.stringify({ email: email, password: password }),
-        headers: {
-          "content-type": "application/json",
-        },
+    fetch("http://localhost:5000/api/auth/signin", {
+      method: "POST",
+      withCredentials: true,
+      body: JSON.stringify({ email: email, password: password }),
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.error) {
+          console.log(res.error);
+        } else {
+          localStorage.setItem("userAuth", JSON.stringify(res));
+          alert(res.message);
+          window.location.replace("/");
+        }
       })
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.error) {
-            console.log(res.error);
-          } else {
-            alert(res.message);
-            login(res.pseudo);
-            navigate("/");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }, []);
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div className="col-12 col-md center-block">
@@ -47,7 +44,7 @@ const Login = () => {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
-          <label className="form-label" for="form2Example1">
+          <label className="form-label" htmlFor="form2Example1">
             Email address
           </label>
         </div>
@@ -60,7 +57,7 @@ const Login = () => {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          <label className="form-label" for="form2Example2">
+          <label className="form-label" htmlFor="form2Example2">
             Password
           </label>
         </div>

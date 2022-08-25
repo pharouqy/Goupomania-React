@@ -48,7 +48,7 @@ const Register = () => {
             value={pseudo}
             onChange={(event) => setPseudo(event.target.value)}
           />
-          <label className="form-label" for="form2Example">
+          <label className="form-label" htmlFor="form2Example">
             Pseudo Name
           </label>
         </div>
@@ -60,7 +60,7 @@ const Register = () => {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
-          <label className="form-label" for="form2Example1">
+          <label className="form-label" htmlFor="form2Example1">
             Email address
           </label>
         </div>
@@ -72,7 +72,7 @@ const Register = () => {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          <label className="form-label" for="form2Example2">
+          <label className="form-label" htmlFor="form2Example2">
             Password
           </label>
         </div>
