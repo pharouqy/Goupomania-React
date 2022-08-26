@@ -23,6 +23,7 @@ const Register = () => {
     })
       .then((res) => res.json())
       .then((res) => {
+        alert(res.message);
         console.log(res);
         navigate("/login");
         if (res.error) {

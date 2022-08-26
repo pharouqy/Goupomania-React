@@ -32,7 +32,7 @@ const Nav = () => {
             <Link to="#" className="nav-item nav-link active">
               Home
             </Link>
-            <Link to="#" className="nav-item nav-link">
+            <Link to="/profil" className="nav-item nav-link">
               Profile
             </Link>
             <Link to="#" className="nav-item nav-link">

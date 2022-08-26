@@ -70,6 +70,7 @@ module.exports.signin = (req, res) => {
             message: "Login success",
             token,
             pseudo: user.pseudo,
+            _id: user._id,
           });
       }
       return res.status(401).json({
@@ -172,7 +173,7 @@ module.exports.updateUser = (req, res) => {
 module.exports.deleteUser = (req, res) => {
   const token = jwt.verify(req.cookies.token, process.env.JWT_SECRET);
   const { id } = req.params;
-  if (token.id !== id && !token.isAdmin) {
+  if (token._id !== id && !token.isAdmin) {
     return res.status(401).json({
       error: "You are not authorized to delete this user",
     });

@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import "../styles/sign.css";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
   const SignIn = (e) => {
     localStorage.setItem("userAuth", JSON.stringify({}));
     e.preventDefault();
@@ -22,6 +20,7 @@ const Login = () => {
         if (res.error) {
           console.log(res.error);
         } else {
+          console.log(res);
           localStorage.setItem("userAuth", JSON.stringify(res));
           alert(res.message);
           window.location.replace("/");
