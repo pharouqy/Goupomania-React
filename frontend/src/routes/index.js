@@ -4,6 +4,8 @@ import Home from "../pages/Home";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import Profil from "../pages/Profil";
+import Profils from "../pages/Profils";
+import UpdateProfil from "../pages/UpdateProfil";
 import Errors from "../pages/404";
 
 const index = () => {
@@ -13,6 +15,8 @@ const index = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/profil" element={<Profil />} />
+      <Route path="/profils" element={<Profils />} />
+      <Route path="/updateProfil/:idUser" element={<UpdateProfil />} />
       <Route path="/*" element={<Errors />} />
     </Routes>
   );

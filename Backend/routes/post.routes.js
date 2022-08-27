@@ -7,8 +7,8 @@ const postCotrller = require("../controllers/post.controllers");
 
 router.get("/", postCotrller.getAllPosts); // Get all posts
 router.get("/:id", postCotrller.getPost); // Get a post
-router.post("/", auth, multer.single("post"), postCotrller.createPost); // Create a post
-router.put("/update/:id", auth, multer.single("post"), postCotrller.updatePost); // Update a post
+router.post("/", auth, multer.single("post_image"), postCotrller.createPost); // Create a post
+router.put("/update/:id", auth, multer.single("post_image"), postCotrller.updatePost); // Update a post
 router.delete("/delete/:id", auth, postCotrller.deletePost); // Delete a post
 
 router.patch("/like/:id", auth, postCotrller.likePost); // Like a post

@@ -13,7 +13,7 @@ router.get("/profil/:id", userCotrller.getUser); // Get a user
 router.put(
   "/update/:id",
   auth,
-  multer.single("profil"),
+  multer.single("profil_image"),
   userCotrller.updateUser
 ); // Update a user
 router.delete("/delete/:id", auth, userCotrller.deleteUser); // Delete a user

@@ -14,6 +14,7 @@ module.exports.signup = (req, res) => {
     const user = new User({
       pseudo,
       email,
+      picture: `${req.protocol}://${req.get("host")}/images/user/profil.jpg`,
       password: hash,
     });
     user.save((err, user) => {
@@ -92,7 +93,6 @@ module.exports.logout = (req, res) => {
 
 module.exports.getUser = (req, res) => {
   const { id } = req.params;
-  console.log(id);
   User.findById(id, (err, user) => {
     if (err) {
       return res.status(500).json({
@@ -129,26 +129,30 @@ module.exports.updateUser = (req, res) => {
   const { id } = req.params;
   const userObject = req.file
     ? {
-        ...req.body.user,
-        picture: `${req.protocol}://${req.get("host")}/images/${
+        ...req.body,
+        picture: `${req.protocol}://${req.get("host")}/images/profils/${
           req.file.filename
         }`,
       }
     : { ...req.body };
-  if (token.id !== id && !token.isAdmin) {
+  if (token._id !== id && !token.isAdmin) {
     return res.status(401).json({
       error: "You are not authorized to update this user",
     });
   } else {
+    Object.keys(userObject).forEach(
+      (k) => userObject[k] == "" && delete userObject[k]
+    ); // Remove the empty string from the object
     User.findByIdAndUpdate(id, userObject, { new: true })
       .then((user) => {
-        const { pseudo, email, bio, picture } = user;
+        const { email, bio, picture } = user;
+        console.log(user);
         const userUpdated = {
-          pseudo: userObject.pseudo ? userObject.pseudo : pseudo,
           email: userObject.email ? userObject.email : email,
           bio: userObject.bio ? userObject.bio : bio,
           picture: userObject.picture ? pictureState() : picture,
         };
+
         function pictureState() {
           if (userObject.picture) {
             const filePath = user.picture.split("/images/")[1];

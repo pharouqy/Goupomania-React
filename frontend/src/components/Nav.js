@@ -28,20 +28,16 @@ const Nav = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarCollapse">
-          <div className="navbar-nav">
-            <Link to="#" className="nav-item nav-link active">
-              Home
-            </Link>
-            <Link to="/profil" className="nav-item nav-link">
-              Profile
-            </Link>
-            <Link to="#" className="nav-item nav-link">
-              Messages
-            </Link>
-            <Link to="#" className="nav-item nav-link disabled" tabIndex="-1">
-              Reports
-            </Link>
-          </div>
+          {userAuth ? (
+            <div className="navbar-nav">
+              <Link to="/profil" className="nav-item nav-link">
+                Profile
+              </Link>
+              <Link to="/profils" className="nav-item nav-link">
+                Profiles
+              </Link>
+            </div>
+          ) : null}
           <div className="navbar-nav ms-auto">
             {userAuth ? (
               <div className="sign">

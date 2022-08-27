@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cockiesPraser = require("cookie-parser");
 require("dotenv").config();
+const path = require("path");
 
 const userRoutes = require("./routes/user.routes");
 const postRoutes = require("./routes/post.routes");
@@ -37,6 +38,8 @@ app.use((req, res, next) => {
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(cockiesPraser()); // for parsing cookies
+
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.use("/api/auth", userRoutes);
 app.use("/api/posts", postRoutes);

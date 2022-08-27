@@ -2,16 +2,16 @@ const multer = require("multer");
 
 const MIME_TYPE_MAP = {
   "image/png": "png",
-  "image/jpeg": "jpg",
+  "image/jpeg": "jpeg",
   "image/jpg": "jpg",
   "image/gif": "gif",
 };
 
 const storage = multer.diskStorage({
   destination: (error, file, callback) => {
-    if (file.fieldname === "post") {
+    if (file.fieldname === "post_image") {
       callback(null, "./images/posts");
-    } else if (file.fieldname === "profil") {
+    } else if (file.fieldname === "profil_image") {
       callback(null, "./images/profils");
     }
   },
