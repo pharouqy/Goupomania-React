@@ -3,7 +3,6 @@ import Card from "../components/Card";
 
 const Profils = () => {
   const [profils, setProfils] = useState([]);
-  console.log(profils);
   useEffect(() => {
     fetch("http://localhost:5000/api/auth/profils/", {
       method: "GET",

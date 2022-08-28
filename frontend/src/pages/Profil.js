@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 
 const Profil = () => {
-  const id = JSON.parse(localStorage.getItem("userAuth"))._id
-    ? JSON.parse(localStorage.getItem("userAuth"))._id
-    : "";
+  const id = JSON.parse(localStorage.getItem("userAuth"))._id;
+
   const [picture, setPicture] = useState("");
   const [pseudo, setPseudo] = useState("");
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
+  
   useEffect(() => {
     fetch(`http://localhost:5000/api/auth/profil/${id}`, {
       method: "GET",

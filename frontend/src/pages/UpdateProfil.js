@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import FormData from "form-data";
+import React, { useState, useEffect, useContext } from "react";
+import { AdminContext } from "../utils/context";
+import { useParams, useNavigate } from "react-router-dom";
 
 const UpdateProfil = () => {
   const { idUser } = useParams();
+  const navigate = useNavigate();
+  let userAuth = JSON.parse(localStorage.getItem("userAuth"));
+  const { adminIn, isAdminAuthent } = useContext(AdminContext);
 
   const [imgfile, uploadimg] = useState([]);
   const [newEmail, setNewEmail] = useState("");
@@ -18,9 +21,26 @@ const UpdateProfil = () => {
   const [emailOld, setEmail] = useState("");
   const [bioOld, setBio] = useState("");
 
-  const imgFilehandler = (e) => {
+  useEffect(() => {
+    fetch(`http://localhost:5000/api/auth/profil/${userAuth._id}`, {
+      method: "GET",
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        isAdminAuthent(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userAuth._id, isAdminAuthent]);
+
+  function imgFilehandler(e) {
     return uploadimg(e.target.files[0]);
-  };
+  }
 
   useEffect(() => {
     fetch(`http://localhost:5000/api/auth/profil/${idUser}`, {
@@ -50,7 +70,18 @@ const UpdateProfil = () => {
       withCredentials: true,
     })
       .then((data) => {
-        console.log(data);
+        if (userAuth._id === idUser || adminIn.isAdminAuth) {
+          console.log(data);
+          alert("User succefully updated !!!");
+          if (adminIn.isAdmin) {
+            navigate(`/profils`);
+          } else {
+            navigate(`/profil`);
+          }
+        } else {
+          alert("You are not allowed to update this user !!!");
+          navigate(`/profils`);
+        }
       })
       .catch((error) => {
         console.log(error);

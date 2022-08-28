@@ -156,6 +156,7 @@ module.exports.updateUser = (req, res) => {
         function pictureState() {
           if (userObject.picture) {
             const filePath = user.picture.split("/images/")[1];
+            console.log(filePath);
             fs.unlink(`images/profils/${filePath}`, (err) => {
               if (err) {
                 console.log(err);

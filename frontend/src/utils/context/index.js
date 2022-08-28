@@ -1,39 +1,21 @@
 import React, { useState, createContext } from "react";
-import Cookies from "js-cookie";
 
-export const UserContext = createContext();
+export const AdminContext = createContext();
 
-export const UserProvider = ({ children }) => {
-  const cookie = Cookies.get("token");
-  // User is the name of the "data" that gets stored in context
-  const [loginIn, setloginIn] = useState({
-    token: cookie ? cookie : null,
-    pseudo: null,
-    auth: false,
+export const AdminProvider = ({ children }) => {
+  const [adminIn, setAdminIn] = useState({
+    isAdminAuth: false,
   });
 
-  // Login updates the user data with a name parameter
-  const login = (token, pseudo) => {
-    setloginIn(() => ({
-      token: cookie ? cookie : token,
-      pseudo: pseudo,
-      auth: true,
-    }));
-  };
-
-  // Logout updates the user data to default
-  const logout = () => {
-
-    setloginIn(() => ({
-      token: null,
-      pseudo: null,
-      auth: false,
-    }));
+  const isAdminAuthent = (data) => {
+    setAdminIn({
+      isAdminAuth: data.isAdmin,
+    });
   };
 
   return (
-    <UserContext.Provider value={{ loginIn, login, logout }}>
+    <AdminContext.Provider value={{ adminIn, isAdminAuthent }}>
       {children}
-    </UserContext.Provider>
+    </AdminContext.Provider>
   );
 };
