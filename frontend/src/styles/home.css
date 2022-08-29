@@ -1,0 +1,26 @@
+img.picture-post {
+  width: 350px;
+  object-fit: cover;
+  border: 5px solid orange;
+  border-radius: 50px;
+}
+
+.cadre {
+  border: 2px solid orange;
+  border-radius: 25px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.align {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.svg-inline--fa {
+  color: orange;
+}

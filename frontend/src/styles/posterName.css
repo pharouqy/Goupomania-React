@@ -1,0 +1,11 @@
+img.photo-profil {
+    width: 15%;
+    border-radius: 50%;
+}
+
+.block-image {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    align-content: center;
+}

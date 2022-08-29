@@ -39,8 +39,8 @@ const Nav = () => {
             </div>
           ) : null}
           <div className="navbar-nav ms-auto">
-            {userAuth ? (
-              <div className="sign">
+            {userAuth ? ( // condition ? (true) : (false); ternaire
+              <div className="sign nav-item nav-link">
                 <span className="nav-item nav-link">
                   Bonjour {userAuth.pseudo}
                 </span>
