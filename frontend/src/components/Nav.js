@@ -1,5 +1,6 @@
 import "../styles/nav.css";
 import { Link } from "react-router-dom";
+import logo from "../icon-left-font.png";
 
 const Nav = () => {
   let userAuth = JSON.parse(localStorage.getItem("userAuth"));
@@ -17,7 +18,7 @@ const Nav = () => {
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
         <Link to="/" className="navbar-brand">
-          Brand
+          <img src={logo} alt="logo" className="logo"/>
         </Link>
         <button
           type="button"

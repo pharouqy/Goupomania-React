@@ -1,6 +1,7 @@
 import "./App.css";
 import Routes from "./routes";
 import Nav from "../src/components/Nav";
+import Footer from "./components/Footer"
 import { BrowserRouter } from "react-router-dom";
 import { AdminProvider } from "./utils/context";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,6 +15,7 @@ function App() {
         <BrowserRouter>
           <Nav />
           <Routes />
+          <Footer />
         </BrowserRouter>
       </AdminProvider>
     </div>

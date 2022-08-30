@@ -36,3 +36,18 @@
     transform: rotate(360deg);
   }
 }
+
+button.btn, a.btn {
+  background-color: orange;
+  border: 1px solid orange;
+}
+
+button.btn:hover, a.btn:hover {
+  background-color: white;
+  border: 1px solid orange;
+  color: orange;
+}
+
+.logo {
+  width: 350px;
+}

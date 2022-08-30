@@ -1,11 +1,13 @@
 img.photo-profil {
-    width: 15%;
-    border-radius: 50%;
+  width: 15%;
+  border-radius: 50%;
+  border: 6px solid orange;
+  margin-right: 15px;
 }
 
 .block-image {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    align-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  align-content: center;
 }

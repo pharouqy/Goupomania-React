@@ -20,7 +20,7 @@ const Home = () => {
   }
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/posts/", {
+    fetch("http://localhost:5000/api/posts", {
       method: "GET",
       withCredentials: true,
       headers: {
@@ -106,15 +106,17 @@ const Home = () => {
                 </div>
               </form>
               {posts.map((post) => (
-                <Post
-                  key={post._id}
-                  posterId={post.posterId}
-                  message={post.message}
-                  picture={post.picture}
-                  comments={post.comments}
-                  likers={post.likers}
-                />
-              ))}
+                  <Post
+                    key={post._id}
+                    idPost={post._id}
+                    posterId={post.posterId}
+                    message={post.message}
+                    picture={post.picture}
+                    comments={post.comments}
+                    likers={post.likers}
+                    time={post.createdAt}
+                  />
+                ))}
             </div>
           ) : (
             <div>
@@ -127,6 +129,7 @@ const Home = () => {
                   picture={post.picture}
                   comments={post.comments}
                   likers={post.likers}
+                  time={post.createdAt}
                 />
               ))}
             </div>
