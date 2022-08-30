@@ -23,4 +23,5 @@ img.picture-post {
 
 .svg-inline--fa {
   color: orange;
+  cursor: pointer;
 }

@@ -78,6 +78,9 @@ module.exports.updatePost = (req, res) => {
         }`,
       }
     : { ...req.body };
+  Object.keys(postObject).forEach(
+    (k) => postObject[k] == "" && delete postObject[k]
+  ); // Remove the empty string from the object
   Post.findByIdAndUpdate(id, postObject, { new: false })
     .then((post) => {
       const filePath = post.picture.split("/images/")[1];

@@ -6,6 +6,7 @@ import TimeAgo from "react-timeago";
 import frenchStrings from "react-timeago/lib/language-strings/fr";
 import buildFormatter from "react-timeago/lib/formatters/buildFormatter";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Post = ({
   idPost,
@@ -16,13 +17,32 @@ const Post = ({
   likers,
   time,
 }) => {
-  const id = JSON.parse(localStorage.getItem("userAuth"))._id;
+  const [isAdmin, setIsAdmin] = useState(false);
+  const userAuth = JSON.parse(localStorage.getItem("userAuth"));
   const [profil, setProfil] = useState("");
   const [pseudo, setPseudo] = useState("");
-  const [admin, setAdmin] = useState("");
 
   const formatter = buildFormatter(frenchStrings);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userAuth) {
+      fetch(`http://localhost:5000/api/auth/profil/${userAuth._id}`, {
+        method: "GET",
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setIsAdmin(data.isAdmin);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [userAuth]);
 
   useEffect(() => {
     fetch(`http://localhost:5000/api/auth/profil/${posterId}`, {
@@ -34,10 +54,8 @@ const Post = ({
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setProfil(data.picture);
         setPseudo(data.pseudo);
-        setAdmin(data.isAdmin);
       })
       .catch((error) => {
         console.log(error);
@@ -45,8 +63,8 @@ const Post = ({
   }, [posterId]);
 
   const handelDelete = () => {
-    if (id === posterId || admin) {
-      alert("You gone to delete this post")
+    if (userAuth._id === posterId || isAdmin) {
+      alert("You gone to delete this post");
       fetch(`http://localhost:5000/api/posts/delete/${idPost}`, {
         method: "DELETE",
         withCredentials: true,
@@ -54,7 +72,7 @@ const Post = ({
           "Content-Type": "application/json",
         },
       })
-        .then((data) => {
+        .then(() => {
           alert("Post deleted");
           navigate(0);
         })
@@ -71,7 +89,9 @@ const Post = ({
       <div className="row">
         <div className="col-md-12 cadre">
           <PosterName pseudo={pseudo} profil={profil} />
-          <img className="picture-post" alt={posterId} src={picture} />
+          {picture ? (
+            <img className="picture-post" alt={posterId} src={picture} />
+          ) : null}
           <p>{message}</p>
           <p>
             Publier <TimeAgo date={time} formatter={formatter} />
@@ -87,7 +107,9 @@ const Post = ({
               <span>0</span>
             </div>
             <div>
-              <FontAwesomeIcon icon="fa-pen-to-square" />
+              <Link to={`/UpdatePost/${idPost}`}>
+                <FontAwesomeIcon icon="fa-pen-to-square" />
+              </Link>
             </div>
             <div onClick={handelDelete}>
               <FontAwesomeIcon icon="fa-trash-can" />
