@@ -37,17 +37,25 @@
   }
 }
 
-button.btn, a.btn {
-  background-color: orange;
-  border: 1px solid orange;
+button.btn,
+a.btn {
+  background-color: #fd2d01;
+  border: 1px solid #fd2d01;
 }
 
-button.btn:hover, a.btn:hover {
+button.btn:hover,
+a.btn:hover {
   background-color: white;
-  border: 1px solid orange;
-  color: orange;
+  border: 1px solid #fd2d01;
+  color: #fd2d01;
 }
 
 .logo {
-  width: 350px;
+  width: 100%;
+}
+
+@media all and (min-width: 1075px) {
+  .logo {
+    max-width: 350px;
+  }
 }

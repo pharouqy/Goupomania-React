@@ -17,8 +17,15 @@ const Post = ({
   likers,
   time,
 }) => {
-  const [isAdmin, setIsAdmin] = useState(false);
   const userAuth = JSON.parse(localStorage.getItem("userAuth"));
+  const etat = likers.includes(userAuth._id)
+    ? "umbers_liked"
+    : "numbersOfLikes";
+
+  const [isLiked, setIsLiked] = useState(likers.length);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [numberLiked, setNumberLiked] = useState(etat);
+
   const [profil, setProfil] = useState("");
   const [pseudo, setPseudo] = useState("");
 
@@ -83,6 +90,50 @@ const Post = ({
       alert("You are unauthorized to delete this post");
     }
   };
+  const like = (e) => {
+    e.preventDefault();
+    fetch(`http://localhost:5000/api/posts/like/${idPost}`, {
+      method: "PATCH",
+      body: JSON.stringify({ likerId: userAuth._id }),
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        alert("You liked this post");
+        setIsLiked(data.length);
+        setNumberLiked("umbers_liked");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const unLike = (e) => {
+    e.preventDefault();
+    fetch(`http://localhost:5000/api/posts/unLike/${idPost}`, {
+      method: "PATCH",
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ likerId: userAuth._id }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        alert("You unLiked this post");
+        setIsLiked(data.length);
+        setNumberLiked("numbersOfLikes");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="container-fluid">
@@ -98,13 +149,14 @@ const Post = ({
           </p>
           <div className="align">
             <div>
-              <FontAwesomeIcon icon="fa-thumbs-up" />
+              {" "}
+              <FontAwesomeIcon icon="fa-thumbs-up" onClick={like} />
             </div>
             <div>
-              <FontAwesomeIcon icon="fa-thumbs-down" />
+              <FontAwesomeIcon icon="fa-thumbs-down" onClick={unLike} />
             </div>
             <div>
-              <span>0</span>
+              <span className={numberLiked}>{isLiked}</span>
             </div>
             <div>
               <Link to={`/UpdatePost/${idPost}`}>

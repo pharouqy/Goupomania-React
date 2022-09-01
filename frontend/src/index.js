@@ -13,7 +13,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);
+root.render(
+    <App />
+);
 
 library.add(fa0, faTrashCan, faPenToSquare, faThumbsUp, faThumbsDown);
 
