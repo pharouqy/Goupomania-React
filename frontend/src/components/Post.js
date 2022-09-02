@@ -18,9 +18,10 @@ const Post = ({
   time,
 }) => {
   const userAuth = JSON.parse(localStorage.getItem("userAuth"));
-  const etat = likers.includes(userAuth._id)
-    ? "umbers_liked"
-    : "numbersOfLikes";
+  let etat = "numbersOfLikes";
+  if (userAuth) {
+    etat = likers.includes(userAuth._id) ? "umbers_liked" : "numbersOfLikes";
+  }
 
   const [isLiked, setIsLiked] = useState(likers.length);
   const [isAdmin, setIsAdmin] = useState(false);
