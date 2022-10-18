@@ -22,7 +22,7 @@ const UpdateProfil = () => {
   const [bioOld, setBio] = useState("");
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/auth/profil/${userAuth._id}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}api/auth/profil/${userAuth._id}`, {
       method: "GET",
       withCredentials: true,
       headers: {
@@ -43,7 +43,7 @@ const UpdateProfil = () => {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/auth/profil/${idUser}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}api/auth/profil/${idUser}`, {
       method: "GET",
       withCredentials: true,
       headers: {
@@ -63,7 +63,7 @@ const UpdateProfil = () => {
 
   const updateUser = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:5000/api/auth/update/${idUser}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}api/auth/update/${idUser}`, {
       method: "PUT",
       body: formData,
       credentials: "same-origin",

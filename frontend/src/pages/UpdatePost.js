@@ -19,7 +19,7 @@ const UpdatePost = () => {
   formData.append("message", newPost);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/posts/${idPost}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}api/posts/${idPost}`, {
       method: "GET",
       withCredentials: true,
       headers: {
@@ -38,7 +38,7 @@ const UpdatePost = () => {
 
   const updatePost = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:5000/api/posts/update/${idPost}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}api/posts/update/${idPost}`, {
       method: "PUT",
       withCredentials: true,
       body: formData,

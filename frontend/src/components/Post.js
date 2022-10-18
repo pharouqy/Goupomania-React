@@ -35,7 +35,7 @@ const Post = ({
 
   useEffect(() => {
     if (userAuth) {
-      fetch(`http://localhost:5000/api/auth/profil/${userAuth._id}`, {
+      fetch(`${process.env.REACT_APP_BASE_URL}api/auth/profil/${userAuth._id}`, {
         method: "GET",
         withCredentials: true,
         headers: {
@@ -53,7 +53,7 @@ const Post = ({
   }, [userAuth]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/auth/profil/${posterId}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}api/auth/profil/${posterId}`, {
       method: "GET",
       withCredentials: true,
       headers: {
@@ -73,7 +73,7 @@ const Post = ({
   const handelDelete = () => {
     if (userAuth._id === posterId || isAdmin) {
       alert("You gone to delete this post");
-      fetch(`http://localhost:5000/api/posts/delete/${idPost}`, {
+      fetch(`${process.env.REACT_APP_BASE_URL}api/posts/delete/${idPost}`, {
         method: "DELETE",
         withCredentials: true,
         headers: {
@@ -93,7 +93,7 @@ const Post = ({
   };
   const like = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:5000/api/posts/like/${idPost}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}api/posts/like/${idPost}`, {
       method: "PATCH",
       body: JSON.stringify({ likerId: userAuth._id }),
       withCredentials: true,
@@ -115,7 +115,7 @@ const Post = ({
   };
   const unLike = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:5000/api/posts/unLike/${idPost}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}api/posts/unLike/${idPost}`, {
       method: "PATCH",
       withCredentials: true,
       headers: {

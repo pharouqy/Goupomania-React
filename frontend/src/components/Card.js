@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Card = ({ picture, pseudo, email, bio, isAdmin, id }) => {
   const deleteProfil = () => {
-    fetch(`http://localhost:5000/api/auth/delete/${id}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}api/auth/delete/${id}`, {
       method: "DELETE",
       withCredentials: true,
       headers: {

@@ -20,7 +20,7 @@ const Home = () => {
   }
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/posts", {
+    fetch(`${process.env.REACT_APP_BASE_URL}api/posts`, {
       method: "GET",
       withCredentials: true,
       headers: {
@@ -39,7 +39,7 @@ const Home = () => {
 
   const postIn = (e) => {
     e.preventDefault();
-    fetch("http://localhost:5000/api/posts/", {
+    fetch(`${process.env.REACT_APP_BASE_URL}api/posts/`, {
       method: "POST",
       body: formData,
       withCredentials: true,
@@ -106,17 +106,17 @@ const Home = () => {
                 </div>
               </form>
               {posts.map((post) => (
-                  <Post
-                    key={post._id}
-                    idPost={post._id}
-                    posterId={post.posterId}
-                    message={post.message}
-                    picture={post.picture}
-                    comments={post.comments}
-                    likers={post.likers}
-                    time={post.createdAt}
-                  />
-                ))}
+                <Post
+                  key={post._id}
+                  idPost={post._id}
+                  posterId={post.posterId}
+                  message={post.message}
+                  picture={post.picture}
+                  comments={post.comments}
+                  likers={post.likers}
+                  time={post.createdAt}
+                />
+              ))}
             </div>
           ) : (
             <div>

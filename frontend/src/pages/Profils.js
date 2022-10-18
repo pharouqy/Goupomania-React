@@ -4,7 +4,7 @@ import Card from "../components/Card";
 const Profils = () => {
   const [profils, setProfils] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/api/auth/profils/", {
+    fetch(`${process.env.REACT_APP_BASE_URL}api/auth/profils/`, {
       method: "GET",
       withCredentials: true,
       headers: {

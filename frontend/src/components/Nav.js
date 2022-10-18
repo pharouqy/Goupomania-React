@@ -5,7 +5,7 @@ import logo from "../icon-left-font.png";
 const Nav = () => {
   let userAuth = JSON.parse(localStorage.getItem("userAuth"));
   const logout = () => {
-    fetch("http://localhost:5000/api/auth/logout", {
+    fetch(`${process.env.REACT_APP_BASE_URL}api/auth/logout`, {
       method: "GET",
       withCredentials: true,
       headers: {
@@ -15,10 +15,10 @@ const Nav = () => {
     localStorage.removeItem("userAuth");
   };
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light" id="top">
       <div className="container-fluid">
         <Link to="/" className="navbar-brand">
-          <img src={logo} alt="logo" className="logo"/>
+          <img src={logo} alt="logo" className="logo" />
         </Link>
         <button
           type="button"

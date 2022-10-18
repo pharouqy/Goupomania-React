@@ -10,14 +10,20 @@ import {
   faPenToSquare,
   faThumbsUp,
   faThumbsDown,
+  faArrowUp,
 } from "@fortawesome/free-solid-svg-icons";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-    <App />
-);
+root.render(<App />);
 
-library.add(fa0, faTrashCan, faPenToSquare, faThumbsUp, faThumbsDown);
+library.add(
+  fa0,
+  faTrashCan,
+  faPenToSquare,
+  faThumbsUp,
+  faThumbsDown,
+  faArrowUp
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

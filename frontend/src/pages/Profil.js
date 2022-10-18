@@ -11,7 +11,7 @@ const Profil = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   
   useEffect(() => {
-    fetch(`http://localhost:5000/api/auth/profil/${id}`, {
+    fetch(`${process.env.REACT_APP_BASE_URL}api/auth/profil/${id}`, {
       method: "GET",
       withCredentials: true,
       headers: {
