@@ -22,13 +22,8 @@ mongoose
     console.log("Error:", err.message);
   });
 
-app.use(cors());
-app.use(express.json()); // for parsing application/json
-app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(cockiesPraser()); // for parsing cookies
-
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://192.168.1.12:3000"); // * means all origins
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); // * means all origins
   res.setHeader("Access-Control-Allow-Credentials", "true"); // allows cookies to be sent
   res.setHeader(
     "Access-Control-Allow-Headers",
@@ -40,6 +35,15 @@ app.use((req, res, next) => {
   ); // allows methods to be sent
   next();
 });
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
+app.use(express.json()); // for parsing application/json
+app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(cockiesPraser()); // for parsing cookies
 
 app.use("/images", express.static(path.join(__dirname, "images")));
 

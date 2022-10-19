@@ -9,8 +9,8 @@ const Login = () => {
     e.preventDefault();
     fetch(`${process.env.REACT_APP_BASE_URL}api/auth/signin`, {
       method: "POST",
-      withCredentials: true,
       credentials: "include",
+      withCredentials: true,
       body: JSON.stringify({ email: email, password: password }),
       headers: {
         "content-type": "application/json",
