@@ -38,6 +38,7 @@ const Post = ({
       fetch(`${process.env.REACT_APP_BASE_URL}api/auth/profil/${userAuth._id}`, {
         method: "GET",
         withCredentials: true,
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -56,6 +57,7 @@ const Post = ({
     fetch(`${process.env.REACT_APP_BASE_URL}api/auth/profil/${posterId}`, {
       method: "GET",
       withCredentials: true,
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -76,6 +78,7 @@ const Post = ({
       fetch(`${process.env.REACT_APP_BASE_URL}api/posts/delete/${idPost}`, {
         method: "DELETE",
         withCredentials: true,
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -97,6 +100,7 @@ const Post = ({
       method: "PATCH",
       body: JSON.stringify({ likerId: userAuth._id }),
       withCredentials: true,
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -118,6 +122,7 @@ const Post = ({
     fetch(`${process.env.REACT_APP_BASE_URL}api/posts/unLike/${idPost}`, {
       method: "PATCH",
       withCredentials: true,
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },

@@ -42,8 +42,7 @@ const Home = () => {
     fetch(`${process.env.REACT_APP_BASE_URL}api/posts/`, {
       method: "POST",
       body: formData,
-      withCredentials: true,
-      credentials: "same-origin",
+      credentials: "include",
     })
       .then((data) => {
         alert("Your post has been successfully posted.");

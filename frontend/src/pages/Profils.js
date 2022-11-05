@@ -7,6 +7,7 @@ const Profils = () => {
     fetch(`${process.env.REACT_APP_BASE_URL}api/auth/profils/`, {
       method: "GET",
       withCredentials: true,
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },

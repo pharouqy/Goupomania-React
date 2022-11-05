@@ -22,6 +22,7 @@ const UpdatePost = () => {
     fetch(`${process.env.REACT_APP_BASE_URL}api/posts/${idPost}`, {
       method: "GET",
       withCredentials: true,
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -41,6 +42,7 @@ const UpdatePost = () => {
     fetch(`${process.env.REACT_APP_BASE_URL}api/posts/update/${idPost}`, {
       method: "PUT",
       withCredentials: true,
+      credentials: "include",
       body: formData,
     })
       .then((data) => {

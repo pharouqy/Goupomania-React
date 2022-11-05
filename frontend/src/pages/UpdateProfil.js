@@ -46,6 +46,7 @@ const UpdateProfil = () => {
     fetch(`${process.env.REACT_APP_BASE_URL}api/auth/profil/${idUser}`, {
       method: "GET",
       withCredentials: true,
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -66,7 +67,7 @@ const UpdateProfil = () => {
     fetch(`${process.env.REACT_APP_BASE_URL}api/auth/update/${idUser}`, {
       method: "PUT",
       body: formData,
-      credentials: "same-origin",
+      credentials: "include",
       withCredentials: true,
     })
       .then((data) => {
