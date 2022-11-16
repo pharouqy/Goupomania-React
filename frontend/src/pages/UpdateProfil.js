@@ -5,7 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 const UpdateProfil = () => {
   const { idUser } = useParams();
   const navigate = useNavigate();
-  let userAuth = JSON.parse(localStorage.getItem("userAuth"));
+  let userAuth = JSON.parse(sessionStorage.getItem("userAuth"));
   const { adminIn, isAdminAuthent } = useContext(AdminContext);
 
   const [imgfile, uploadimg] = useState([]);

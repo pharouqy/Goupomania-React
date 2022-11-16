@@ -17,7 +17,7 @@ const Post = ({
   likers,
   time,
 }) => {
-  const userAuth = JSON.parse(localStorage.getItem("userAuth"));
+  const userAuth = JSON.parse(sessionStorage.getItem("userAuth"));
   let etat = "numbersOfLikes";
   if (userAuth) {
     etat = likers.includes(userAuth._id) ? "umbers_liked" : "numbersOfLikes";
@@ -108,7 +108,6 @@ const Post = ({
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        alert("You liked this post");
         setIsLiked(data.length);
         setNumberLiked("umbers_liked");
         navigate("/");
@@ -131,7 +130,6 @@ const Post = ({
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        alert("You unLiked this post");
         setIsLiked(data.length);
         setNumberLiked("numbersOfLikes");
         navigate("/");

@@ -3,7 +3,7 @@ import Post from "../components/Post";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  let userAuth = JSON.parse(localStorage.getItem("userAuth"));
+  let userAuth = JSON.parse(sessionStorage.getItem("userAuth"));
 
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
@@ -61,7 +61,7 @@ const Home = () => {
           {userAuth ? (
             <div>
               <form onSubmit={postIn} encType="multipart/form-data">
-                <h1>The Wall</h1>
+                <h1>Le Réseau Social !!!</h1>
                 <div className="form-group row">
                   <label htmlFor="message" className="col-4 col-form-label">
                     Message
@@ -118,20 +118,7 @@ const Home = () => {
               ))}
             </div>
           ) : (
-            <div>
-              <h1>The Wall</h1>
-              {posts.map((post) => (
-                <Post
-                  key={post._id}
-                  posterId={post.posterId}
-                  message={post.message}
-                  picture={post.picture}
-                  comments={post.comments}
-                  likers={post.likers}
-                  time={post.createdAt}
-                />
-              ))}
-            </div>
+            navigate("/login")
           )}
         </div>
       </div>

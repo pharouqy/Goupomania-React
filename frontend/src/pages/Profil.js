@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 
 const Profil = () => {
-  const id = JSON.parse(localStorage.getItem("userAuth"))._id;
+  const id = JSON.parse(sessionStorage.getItem("userAuth"))._id;
 
   const [picture, setPicture] = useState("");
   const [pseudo, setPseudo] = useState("");

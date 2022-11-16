@@ -14,7 +14,7 @@ const Card = ({ picture, pseudo, email, bio, isAdmin, id }) => {
         if (data.statusText === "Unauthorized") {
           alert("Error deleting profile: " + data.statusText);
         } else {
-          localStorage.removeItem("userAuth");
+          sessionStorage.removeItem("userAuth");
           alert("Profile deleted");
           window.location.href = "/";
         }

@@ -2,8 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 const UpdatePost = () => {
+  const userAuth = JSON.parse(sessionStorage.getItem("userAuth"));
   const { idPost } = useParams();
   const navigate = useNavigate();
+
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const [posterId, setPosterId] = useState({});
 
   const [oldPost, setOldPost] = useState("");
 
@@ -19,6 +24,30 @@ const UpdatePost = () => {
   formData.append("message", newPost);
 
   useEffect(() => {
+    if (userAuth) {
+      fetch(
+        `${process.env.REACT_APP_BASE_URL}api/auth/profil/${userAuth._id}`,
+        {
+          method: "GET",
+          withCredentials: true,
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setIsAdmin(data.isAdmin);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [userAuth]);
+
+  useEffect(() => {
     fetch(`${process.env.REACT_APP_BASE_URL}api/posts/${idPost}`, {
       method: "GET",
       withCredentials: true,
@@ -30,6 +59,7 @@ const UpdatePost = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        setPosterId(data.posterId);
         setOldPost(data.message);
       })
       .catch((err) => {
@@ -39,20 +69,24 @@ const UpdatePost = () => {
 
   const updatePost = (e) => {
     e.preventDefault();
-    fetch(`${process.env.REACT_APP_BASE_URL}api/posts/update/${idPost}`, {
-      method: "PUT",
-      withCredentials: true,
-      credentials: "include",
-      body: formData,
-    })
-      .then((data) => {
-        console.log(data);
-        alert("Post succefully updated !!!");
-        navigate("/");
+    if (isAdmin || userAuth._id === posterId) {
+      fetch(`${process.env.REACT_APP_BASE_URL}api/posts/update/${idPost}`, {
+        method: "PUT",
+        withCredentials: true,
+        credentials: "include",
+        body: formData,
       })
-      .catch((err) => {
-        console.log({ error: err });
-      });
+        .then((data) => {
+          console.log(data);
+          alert("Post succefully updated !!!");
+          navigate("/");
+        })
+        .catch((err) => {
+          console.log({ error: err });
+        });
+    } else {
+      alert("You are not allowed to update this post");
+    }
   };
 
   return (

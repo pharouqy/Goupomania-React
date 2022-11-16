@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../icon-left-font.png";
 
 const Nav = () => {
-  let userAuth = JSON.parse(localStorage.getItem("userAuth"));
+  let userAuth = JSON.parse(sessionStorage.getItem("userAuth"));
   const logout = () => {
     fetch(`${process.env.REACT_APP_BASE_URL}api/auth/logout`, {
       method: "GET",
@@ -12,7 +12,7 @@ const Nav = () => {
         "content-type": "application/json",
       },
     });
-    localStorage.removeItem("userAuth");
+    sessionStorage.removeItem("userAuth");
   };
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light" id="top">

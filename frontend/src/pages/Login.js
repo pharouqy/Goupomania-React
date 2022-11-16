@@ -5,7 +5,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const SignIn = (e) => {
-    localStorage.setItem("userAuth", JSON.stringify({}));
+    sessionStorage.setItem("userAuth", JSON.stringify({}));
     e.preventDefault();
     fetch(`${process.env.REACT_APP_BASE_URL}api/auth/signin`, {
       method: "POST",
@@ -22,7 +22,7 @@ const Login = () => {
           console.log(res.error);
         } else {
           console.log(res);
-          localStorage.setItem("userAuth", JSON.stringify(res));
+          sessionStorage.setItem("userAuth", JSON.stringify(res));
           alert(res.message);
           window.location.replace("/");
         }
